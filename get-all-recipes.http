@@ -1,0 +1,2 @@
+GET https://moderation-kitchen-api.azurewebsites.net/api/recipes HTTP/1.1
+

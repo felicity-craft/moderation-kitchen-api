@@ -1,0 +1,78 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "ModerationKitchen.Web.Api/1.0.0": {
+        "dependencies": {
+          "System.IO.Abstractions": "17.2.26"
+        },
+        "runtime": {
+          "ModerationKitchen.Web.Api.dll": {}
+        }
+      },
+      "System.IO.Abstractions/17.2.26": {
+        "dependencies": {
+          "TestableIO.System.IO.Abstractions": "17.2.26",
+          "TestableIO.System.IO.Abstractions.Wrappers": "17.2.26"
+        },
+        "runtime": {
+          "lib/net6.0/System.IO.Abstractions.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.2.26.63096"
+          }
+        }
+      },
+      "TestableIO.System.IO.Abstractions/17.2.26": {
+        "runtime": {
+          "lib/net6.0/TestableIO.System.IO.Abstractions.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.2.26.63096"
+          }
+        }
+      },
+      "TestableIO.System.IO.Abstractions.Wrappers/17.2.26": {
+        "dependencies": {
+          "TestableIO.System.IO.Abstractions": "17.2.26"
+        },
+        "runtime": {
+          "lib/net6.0/TestableIO.System.IO.Abstractions.Wrappers.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.2.26.63096"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ModerationKitchen.Web.Api/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.IO.Abstractions/17.2.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6hhbvnD2IkWUjto4IIN0pZhZP7G4EBmFxx380CvGJO/1yI+GLmVq/rvl3gbDtR1UJBeGXosEopK0O4rO47p4ag==",
+      "path": "system.io.abstractions/17.2.26",
+      "hashPath": "system.io.abstractions.17.2.26.nupkg.sha512"
+    },
+    "TestableIO.System.IO.Abstractions/17.2.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BO+O9ed2RQC9A+mdclTfvVHXtqGFZ3C72brUtDfbjrhU0RVf6nxpTbvd6wc03B5nGau2aTfUEKLH3PWp8O25Ag==",
+      "path": "testableio.system.io.abstractions/17.2.26",
+      "hashPath": "testableio.system.io.abstractions.17.2.26.nupkg.sha512"
+    },
+    "TestableIO.System.IO.Abstractions.Wrappers/17.2.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xCSeI+J+6Naa1UG6OcZ233TKkIz14OFuQ99765OlTyQSz7U9ozN4rjUemZsRTikIgd1YBvsyH0gYt1/bNyNsUw==",
+      "path": "testableio.system.io.abstractions.wrappers/17.2.26",
+      "hashPath": "testableio.system.io.abstractions.wrappers.17.2.26.nupkg.sha512"
+    }
+  }
+}

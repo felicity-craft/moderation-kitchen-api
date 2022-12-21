@@ -1,0 +1,5 @@
+POST https://localhost:7264/api/recipes/chocolate-macaron-cake/comments HTTP/1.1
+Origin: http://localhost:4200
+Content-Type: application/json
+
+{"email":"asdcas@example.com","name":"safsed","comment":"Hello","rating":4, "date": "2022-11-11T14:21"}

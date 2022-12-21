@@ -1,0 +1,42 @@
+POST https://localhost:7264/api/recipes HTTP/1.1
+Origin: http://localhost:4200
+Content-Type: application/json
+
+{
+  "slug": "chocolate-cookies",
+  "isDraft": true,
+  "title": "Chocolate cookies",
+  "author": "Felicity Craft",
+  "date": "2022-07-17",
+  "intro": "Some text here for intro",
+  "heroImage": "/assets/images/post-images/buns.jpg",
+  "body": "Some text here for the body",
+  "rating": {
+    "averageRating": 4.5,
+    "timesRated": 10
+  },
+  "prepTime": "15 mins",
+  "cookTime": "30 mins",
+  "quantitySizeMade": "8inch cake",
+  "ingredients": [
+    "unsalted butter",
+    "flour"
+  ],
+  "method": [
+    "cream butter",
+    "add in eggs"
+  ],
+  "tags": [
+    "Cake",
+    "Chocolate"
+  ],
+  "comments": [
+    {
+      "rating": 5,
+      "comment": "this was yum",
+      "name": "Bobby Brown",
+      "email": "bb@example.com",
+      "date": "2022-08-19"
+    }
+  ]
+}
