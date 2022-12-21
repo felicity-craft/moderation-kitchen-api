@@ -15,6 +15,10 @@ builder.Services.AddTransient(_ => new JsonSerializerOptions
     WriteIndented = true,
 });
 
+builder.Services.Configure<DataOptions>(
+    builder.Configuration.GetSection(DataOptions.Key)
+);
+
 var config = builder.Configuration;
 
 builder.Services.AddCors(cfg =>

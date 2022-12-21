@@ -1,6 +1,7 @@
 using System.IO.Abstractions;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ModerationKitchen.Web.Api.Models;
 
 namespace ModerationKitchen.Web.Api.Controllers;
@@ -9,16 +10,18 @@ namespace ModerationKitchen.Web.Api.Controllers;
 [Route("api/tags")]
 public class TagsController : ControllerBase
 {
-    private readonly string dataDirectoryPath = "/Users/fliss/Desktop/VS Projects/ModerationKitchen/WebApi/Web.Api/Data/Recipes";
+    private readonly string dataDirectoryPath;
     private readonly IFileSystem fileSystem;
     private readonly JsonSerializerOptions jsonOptions;
     private readonly ILogger<TagsController> logger;
 
-    public TagsController(IFileSystem fileSystem, JsonSerializerOptions jsonOptions, ILogger<TagsController> logger)
+    public TagsController(IFileSystem fileSystem, JsonSerializerOptions jsonOptions, ILogger<TagsController> logger, IOptions<DataOptions> dataOptions)
     {
         this.fileSystem = fileSystem;
         this.jsonOptions = jsonOptions;
         this.logger = logger;
+        this.dataDirectoryPath = dataOptions.Value.RecipeDirectoryPath;
+
     }
 
     [HttpGet]

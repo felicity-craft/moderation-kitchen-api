@@ -1,6 +1,7 @@
 using System.IO.Abstractions;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ModerationKitchen.Web.Api.Models;
 
 namespace ModerationKitchen.Web.Api.Controllers;
@@ -8,16 +9,18 @@ namespace ModerationKitchen.Web.Api.Controllers;
 [ApiController]
 public class CommentsController : ControllerBase
 {
-    private readonly string dataDirectoryPath = "/Users/fliss/Desktop/VS Projects/ModerationKitchen/WebApi/Web.Api/Data/Recipes";
+    private readonly string dataDirectoryPath;
     private readonly IFileSystem fileSystem;
     private readonly JsonSerializerOptions jsonOptions;
     private readonly ILogger<CommentsController> logger;
 
-    public CommentsController(IFileSystem fileSystem, JsonSerializerOptions jsonOptions, ILogger<CommentsController> logger)
+    public CommentsController(IFileSystem fileSystem, JsonSerializerOptions jsonOptions, ILogger<CommentsController> logger, IOptions<DataOptions> dataOptions)
     {
         this.fileSystem = fileSystem;
         this.jsonOptions = jsonOptions;
         this.logger = logger;
+        this.dataDirectoryPath = dataOptions.Value.RecipeDirectoryPath;
+
     }
 
     [HttpPost("api/recipes/{slug}/comments")]

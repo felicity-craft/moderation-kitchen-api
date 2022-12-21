@@ -1,2 +1,2 @@
-GET https://moderation-kitchen-api.azurewebsites.net/api/recipes HTTP/1.1
+GET https://localhost:7264/api/recipes HTTP/1.1
 
