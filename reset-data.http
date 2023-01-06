@@ -1,0 +1,2 @@
+POST https://localhost:7264/api/admin/recipes/reset-data HTTP/1.1
+Origin: http://localhost:4200
