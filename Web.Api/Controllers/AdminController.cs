@@ -11,6 +11,7 @@ namespace ModerationKitchen.Web.Api.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly string dataDirectoryPath;
+    private readonly string backupDirectoryPath;
     private readonly IFileSystem fileSystem;
     private readonly JsonSerializerOptions jsonOptions;
     private readonly ILogger<AdminController> logger;
@@ -21,7 +22,7 @@ public class AdminController : ControllerBase
         this.jsonOptions = jsonOptions;
         this.logger = logger;
         this.dataDirectoryPath = dataOptions.Value.RecipeDirectoryPath;
-
+        this.backupDirectoryPath = dataOptions.Value.BackupDirectoryPath;
     }
 
     [HttpGet()]
@@ -95,16 +96,17 @@ public class AdminController : ControllerBase
         return this.Created($"/api/recipes/{recipe.Slug}", recipe);
     }
 
-    [HttpPut ("{slug}")]
-    public async Task<IActionResult> UpdateRecipe([FromRoute] string slug,[FromBody] Recipe recipe, CancellationToken ct) {
+    [HttpPut("{slug}")]
+    public async Task<IActionResult> UpdateRecipe([FromRoute] string slug, [FromBody] Recipe recipe, CancellationToken ct)
+    {
 
         this.logger.LogInformation("Trying to update recipe with slug {slug}", slug);
         string recipeFilePath = Path.Join(this.dataDirectoryPath, $"{slug}.json");
         if (this.fileSystem.File.Exists(recipeFilePath))
         {
             using Stream stream = this.fileSystem.File.Open(recipeFilePath, FileMode.Truncate);
-           await JsonSerializer.SerializeAsync<Recipe>(stream, recipe, this.jsonOptions, ct);
-           return NoContent();
+            await JsonSerializer.SerializeAsync<Recipe>(stream, recipe, this.jsonOptions, ct);
+            return NoContent();
         }
         this.logger.LogWarning("No recipe found with slug {slug}", slug);
         return this.NotFound();
@@ -125,4 +127,32 @@ public class AdminController : ControllerBase
         return this.NotFound();
     }
 
+    [HttpPost("reset-data")]
+    public IActionResult ResetData()
+    {
+        this.logger.LogInformation("Attempting to reset data in {dataDirectoryPath}", this.dataDirectoryPath);
+
+        if (this.fileSystem.Directory.Exists(this.dataDirectoryPath))
+        {
+            this.logger.LogInformation("Deleting the directory {dataDirectoryPath}", this.dataDirectoryPath);
+            this.fileSystem.Directory.Delete(this.dataDirectoryPath, recursive: true);
+        }
+
+        // Need to ensure the directory still exists, as `Delete` will remove the directory, as well as the contents.
+        this.fileSystem.Directory.CreateDirectory(this.dataDirectoryPath);
+
+        if (this.fileSystem.Directory.Exists(this.backupDirectoryPath))
+        {
+            this.logger.LogInformation("Copy files in {backupDirectoryPath}", this.backupDirectoryPath);
+            foreach (var filePath in this.fileSystem.Directory.EnumerateFiles(this.backupDirectoryPath))
+            {
+                var newFilePath = Path.Join(this.dataDirectoryPath, Path.GetFileName(filePath));
+                this.logger.LogInformation("Copying the file {filePath} to {newFilePath}", filePath, newFilePath);
+
+                this.fileSystem.File.Copy(filePath, newFilePath);
+            }
+        }
+
+        return this.NoContent();
+    }
 }
